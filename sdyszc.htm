@@ -10,12 +10,22 @@
   要求：必须是公开可访问、无需登录、非 PDF 的网页。
 
   【内容依据】均按项目真实实现撰写，未作任何理想化假设：
-    - AndroidManifest.xml：仅 INTERNET 权限、usesCleartextTraffic=false、无 WebView
+    - AndroidManifest.xml：INTERNET + com.android.vending.CHECK_LICENSE 两个权限
+      （2026-11-15 改为 $1.00 买断并移植正版验证后补上第二个权限）、
+      usesCleartextTraffic=false、无 WebView
     - app/build.gradle：API_URL = https://787980.xyz/treehole/api.php（www 为备援）
     - api.php:84-96：IP 取自 CF-Connecting-IP，回退 REMOTE_ADDR
     - api.php:107-116：ua 字段，App 固定为 TreeholeAndroid/1.0
     - api.php:255-275：IP 用于 15 秒防刷限流，与留言一起写入数据库表
     - AppLocale：语言偏好由 AppCompatDelegate 保存在设备本地
+    - LicenseGate：2026-11-15 从 Count 移植的 Google Play 许可校验，启动时不上传
+      任何设备信息，只接收「是否已授权」的校验结果
+    - 购买/退款由 Google Play 处理，运营者不接触任何支付信息
+
+  【2026-11-15 11:45 更新】改为一次性买断 $1.00 + 正版验证，并关闭公开网页版。
+  全文已删除「网页版 / web version / website」「免费提供」等字眼，适用范围改为
+  「仅通过 Google Play 分发的 Android 应用」；权限声明同步补齐 CHECK_LICENSE。
+  本页不是留言入口，仅作政策说明。
 
   【双语】默认中文，右上角可切 English；支持 #en 直达英文版，
         便于把英文链接直接交给 Play 审核员。无 JS 时两份全文都会显示。
@@ -142,8 +152,8 @@
     <h1>隐私政策</h1>
     <p class="meta">
       <strong>生效日期：</strong>2026 年 11 月 15 日　·　<strong>最近更新：</strong>2026 年 11 月 15 日<br>
-      <strong>适用产品：</strong>树洞 Android 应用（包名 <code>xyz.treehole787980</code>）及与其共用同一份数据的网页版
-      <a href="https://787980.xyz/treehole/">https://787980.xyz/treehole/</a>
+      <strong>适用产品：</strong>树洞 Android 应用（包名 <code>xyz.treehole787980</code>），Google Play 一次性付费 $1.00<br>
+      <strong>说明：</strong>本应用仅通过 Google Play 分发；本页与使用条款页只是政策说明文档，不是留言入口。
     </p>
 
     <div class="card">
@@ -152,7 +162,8 @@
     </div>
 
     <h2>1. 我们是谁、本政策覆盖什么</h2>
-    <p>树洞是由个人开发者运营的匿名留言板，Android 应用与网页版读写同一个数据库，因此两端展示的内容完全一致。本政策说明应用在你使用「浏览留言、发布留言、回复、按日期查找、切换语言」这些功能时，会收集、使用、保存哪些信息。</p>
+    <p>树洞是由个人开发者运营的匿名留言板，<strong>仅通过 Google Play 分发的 Android 应用提供</strong>。本政策说明应用在你使用「浏览留言、发布留言、回复、按日期查找、切换语言」这些功能时，会收集、使用、保存哪些信息。</p>
+    <p>应用为一次性付费买断（$1.00），购买与退款完全由 Google Play 处理。启动时应用会通过 Google Play 的许可服务校验购买状态；<strong>我们不会接触、也不会收集你的支付卡号、账单地址、购买账号或任何财务信息</strong>，只接收「是否已授权」这一校验结果。</p>
     <p>应用只与自有接口通信：<code>https://787980.xyz/treehole/api.php</code>（根域名不可用时自动回退 <code>https://www.787980.xyz/treehole/api.php</code>）。全部请求走 HTTPS，应用已声明 <code>usesCleartextTraffic="false"</code>，不允许明文 HTTP；数据库账号与密码不会打包进 APK。</p>
 
     <h2>2. 我们收集哪些信息</h2>
@@ -161,12 +172,12 @@
       <tr>
         <td>你主动提交的内容<br><span class="tag">公开</span></td>
         <td>昵称（可留空，最多 16 字）、留言正文（最多 4096 字）、回复内容、发布时间</td>
-        <td>用于在应用与网页版展示留言、按日期查找、分页与回复。这些内容<strong>对所有访问者公开可见</strong>，留空昵称时显示为「匿名」。</td>
+        <td>用于在应用内展示留言、按日期查找、分页与回复。这些内容<strong>对所有已安装本应用的用户公开可见</strong>，留空昵称时显示为「匿名」。</td>
       </tr>
       <tr>
         <td>自动记录的技术信息<br><span class="tag">不公开</span></td>
         <td>IP 地址、客户端标识（<code>ua</code> 字段）</td>
-        <td>与留言一起写入服务端数据库，仅用于：① 15 秒内重复发布的防刷限流；② 后台辨识留言来源（应用固定为 <code>TreeholeAndroid/1.0</code>，网页为浏览器 User-Agent）；③ 在出现违法或违规内容时配合处置。不会公开展示，也不用于广告或画像。</td>
+        <td>与留言一起写入服务端数据库，仅用于：① 15 秒内重复发布的防刷限流；② 后台辨识留言来源（应用固定为 <code>TreeholeAndroid/1.0</code>）；③ 在出现违法或违规内容时配合处置。不会公开展示，也不用于广告或画像。</td>
       </tr>
       <tr>
         <td>设备本地设置<br><span class="tag">仅本机</span></td>
@@ -185,9 +196,9 @@
     <ul>
       <li>没有账号体系：不收集姓名、邮箱、手机号、密码、身份证号，也没有登录状态。</li>
       <li>不请求通讯录、相机、麦克风、照片/文件、精确或粗略位置、短信、电话、日历、生物识别等权限。</li>
-      <li>应用的<strong>唯一权限是 <code>android.permission.INTERNET</code></strong>（联网）；不使用 WebView，不读写设备外部存储，不申请后台运行或自启动权限。</li>
+      <li>应用只申请两个权限：<code>android.permission.INTERNET</code>（联网）与 <code>com.android.vending.CHECK_LICENSE</code>（向 Google Play 校验购买许可，不读取设备信息、不上传数据）；不使用 WebView，不读写设备外部存储，不申请后台运行或自启动权限。</li>
       <li>不含任何广告 SDK、统计分析 SDK、崩溃上报 SDK、推送 SDK、第三方登录或社交分享 SDK，也不含广告标识符（GAID/AAID）采集。</li>
-      <li>不收集支付信息、健康数据、生物特征，不做跨应用或跨网站追踪，不建立用户画像。</li>
+      <li>不收集支付信息：一次性购买由 Google Play 结算，我们收不到卡号、账单地址或支付账号，应用只读取 Google Play 的授权校验结果。也不收集健康数据、生物特征，不做跨应用或跨网站追踪，不建立用户画像。</li>
     </ul>
     <p>应用使用的 AndroidX AppCompat / RecyclerView / SwipeRefreshLayout、OkHttp、Gson 均为界面与网络解析库，本身不向我们或第三方上传你的个人信息。</p>
 
@@ -223,10 +234,10 @@
     <p>树洞不面向 13 岁以下儿童（或你所在地区法定最低年龄以下的未成年人），也不会有意收集其个人信息。应用没有年龄门槛，但我们建议未成年人在监护人陪同下使用。若你是监护人并认为孩子发布了内容，请通过下方邮箱联系我们，我们会尽快核实并删除。</p>
 
     <h2>9. 第三方链接</h2>
-    <p>应用内不跳转到第三方网站，也不嵌入第三方内容。本政策页面中指向网页版与邮箱的链接除外。</p>
+    <p>应用内不嵌入第三方内容；唯一的外部跳转是正版验证未通过时打开本应用在 Google Play 的详情页。本政策页面中指向使用条款与邮箱的链接除外。</p>
 
     <h2>10. 政策变更</h2>
-    <p>如果功能或数据处理方式发生变化，我们会更新本页并修改顶部的「生效日期」。重大变更会在应用或网页版的显著位置提示。建议定期查看本页。</p>
+    <p>如果功能或数据处理方式发生变化，我们会更新本页并修改顶部的「生效日期」。重大变更会在应用内或本页显著位置提示。建议定期查看本页。</p>
 
     <h2>11. 联系我们</h2>
     <p>对本政策、你的留言内容或数据删除请求有任何疑问，请发邮件至 <a href="mailto:260358@qq.com">260358@qq.com</a>。我们会在合理期限内回复。</p>
@@ -237,8 +248,8 @@
     <h1>Privacy Policy</h1>
     <p class="meta">
       <strong>Effective date:</strong> 15 November 2026　·　<strong>Last updated:</strong> 15 November 2026<br>
-      <strong>Applies to:</strong> the Treehole Android app (package <code>xyz.treehole787980</code>) and the web version at
-      <a href="https://787980.xyz/treehole/">https://787980.xyz/treehole/</a>, which share the same data.
+      <strong>Applies to:</strong> the Treehole Android app (package <code>xyz.treehole787980</code>), a one-time $1.00 purchase on Google Play.<br>
+      <strong>Note:</strong> the app is distributed only through Google Play. This page and the Terms page are policy documents, not a way to post.
     </p>
 
     <div class="card">
@@ -247,7 +258,8 @@
     </div>
 
     <h2>1. Who we are and what this policy covers</h2>
-    <p>Treehole is an anonymous message board operated by an individual developer. The Android app and the website read and write the same database, so both show identical content. This policy explains what information is collected, used and retained when you browse posts, publish a post, reply, search by date or change the app language.</p>
+    <p>Treehole is an anonymous message board operated by an individual developer and available <strong>only as an Android app distributed through Google Play</strong>. This policy explains what information is collected, used and retained when you browse posts, publish a post, reply, search by date or change the app language.</p>
+    <p>The app is a one-time $1.00 purchase handled entirely by Google Play, including refunds. On launch the app verifies the purchase through Google Play's licensing service; <strong>we never receive or collect your card number, billing address, purchase account or any other financial information</strong> — only the licensed / not-licensed result.</p>
     <p>The app talks only to our own endpoint: <code>https://787980.xyz/treehole/api.php</code> (falling back to <code>https://www.787980.xyz/treehole/api.php</code> if the apex domain is unreachable). All traffic uses HTTPS, the app declares <code>usesCleartextTraffic="false"</code>, and database credentials are never bundled into the APK.</p>
 
     <h2>2. Information we collect</h2>
@@ -256,12 +268,12 @@
       <tr>
         <td>Content you submit<br><span class="tag">Public</span></td>
         <td>Nickname (optional, up to 16 characters), post body (up to 4096 characters), reply body, timestamp</td>
-        <td>Displaying posts and replies, date search, pagination and relative times on both app and website. This content is <strong>publicly visible to all visitors</strong>; an empty nickname is shown as "Anonymous".</td>
+        <td>Displaying posts and replies, date search, pagination and relative times inside the app. This content is <strong>publicly visible to all users of the app</strong>; an empty nickname is shown as "Anonymous".</td>
       </tr>
       <tr>
         <td>Automatically logged technical data<br><span class="tag">Not public</span></td>
         <td>IP address and a client identifier (<code>ua</code> field)</td>
-        <td>Stored alongside the post in the server database, solely to: (1) rate-limit repeat posting within 15 seconds; (2) identify the source in the moderation panel (<code>TreeholeAndroid/1.0</code> for the app, a browser User-Agent for the web); and (3) handle unlawful or policy-violating content. Never displayed publicly; never used for advertising or profiling.</td>
+        <td>Stored alongside the post in the server database, solely to: (1) rate-limit repeat posting within 15 seconds; (2) identify the source in the moderation panel (<code>TreeholeAndroid/1.0</code> for the app); and (3) handle unlawful or policy-violating content. Never displayed publicly; never used for advertising or profiling.</td>
       </tr>
       <tr>
         <td>On-device preferences<br><span class="tag">Local only</span></td>
@@ -280,9 +292,9 @@
     <ul>
       <li>No accounts: no name, email, phone number, password, government ID, and no login state.</li>
       <li>No access to contacts, camera, microphone, photos/files, precise or coarse location, SMS, calls, calendar or biometrics.</li>
-      <li>The <strong>only permission requested is <code>android.permission.INTERNET</code></strong>. There is no WebView, no external-storage access and no background-start permission.</li>
+      <li>The app requests only two permissions: <code>android.permission.INTERNET</code> for networking and <code>com.android.vending.CHECK_LICENSE</code> to verify the purchase with Google Play (it reads no device data and uploads nothing). There is no WebView, no external-storage access and no background-start permission.</li>
       <li>No advertising, analytics, crash-reporting, push, third-party login or social-sharing SDKs. No advertising ID is collected.</li>
-      <li>No payment or health data, no biometric data, no cross-app tracking and no user profiling.</li>
+      <li>No payment data: the one-time purchase is billed by Google Play, so we never receive card numbers, billing addresses or payment accounts; the app only reads the licence result. No health or biometric data, no cross-app tracking and no user profiling.</li>
     </ul>
     <p>AndroidX AppCompat / RecyclerView / SwipeRefreshLayout, OkHttp and Gson are used only for UI, networking and JSON parsing; they do not upload your personal information to us or to third parties.</p>
 
@@ -318,17 +330,17 @@
     <p>Treehole is not directed at children under 13 (or under the minimum age applicable in your jurisdiction), and we do not knowingly collect their personal information. There is no age gate, but minors should use the service with a guardian. If you are a guardian and believe a child has posted content, contact us at the address below and we will verify and remove it promptly.</p>
 
     <h2>9. Third-party links</h2>
-    <p>The app contains no links to third-party websites and embeds no third-party content. The only external references on this page are links to our own web version and our email address.</p>
+    <p>The app embeds no third-party content; its only external navigation opens this app's Google Play listing when licence verification fails. The external references on this page are the Terms of Use and our email address.</p>
 
     <h2>10. Changes to this policy</h2>
-    <p>If features or data practices change, we will update this page and revise the effective date above. Significant changes will be highlighted in the app or on the website. Please review this page periodically.</p>
+    <p>If features or data practices change, we will update this page and revise the effective date above. Significant changes will be highlighted in the app or on this page. Please review this page periodically.</p>
 
     <h2>11. Contact us</h2>
     <p>For questions about this policy, your posts, or a deletion request, email <a href="mailto:260358@qq.com">260358@qq.com</a>. We will respond within a reasonable time.</p>
   </article>
 
   <footer>
-    树洞 · Treehole　|　<a href="https://787980.xyz/treehole/">网页版</a>　|　<a href="https://hchua.github.io/work/sdtos.htm">使用条款 / Terms of Use</a>　|　<a href="mailto:260358@qq.com">260358@qq.com</a><br>
+    树洞 · Treehole　|　<a href="https://hchua.github.io/work/sdtos.htm">使用条款 / Terms of Use</a>　|　<a href="mailto:260358@qq.com">260358@qq.com</a><br>
     本页同时用于 Google Play 商店详情的隐私政策链接。
   </footer>
 </div>
