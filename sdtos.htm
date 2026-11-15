@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--
+  树洞（Treehole）使用条款 / 社区准则
+  --------------------------------------------------------------------
+  用途：满足 Google Play「用户生成内容（UGC）政策」对 Terms of Use 的要求，
+        同时作为商店详情与 Play Console「应用内容」里的内容政策链接。
+  部署：上传到 GitHub 公开仓库 hchua/work 根目录，远端文件名 sdtos.htm
+  URL：https://hchua.github.io/work/sdtos.htm
+        （与 App 的 BuildConfig.TERMS_URL 一致；发布前条款同意弹窗会打开本页）
+  依据：https://play.google.com/about/restricted-content/user-generated-content
+        UGC 应用必须：① 发布前要求用户接受条款 ② 明确定义并禁止不良内容
+        ③ 提供应用内举报/屏蔽 ④ 持续审核并对举报采取行动。
+  2026-11-15 补齐：第 ③ 项已在 Android 端实现（长按举报 + 本机屏蔽 +
+        首次发布前条款同意），举报写入服务端 treehole_report 表供人工处置。
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<meta name="color-scheme" content="dark">
+<title>使用条款 · 树洞 Treehole</title>
+<style>
+  :root { --bg:#0B100E; --card:#131B17; --line:#22322A; --text:#DFEAE3; --sub:#B9CFC2; --muted:#8AA397; --accent:#4ADE80; --warn:#D4A234; }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:radial-gradient(900px 520px at 15% -8%,#16362A 0%,var(--bg) 72%) no-repeat,var(--bg);
+         color:var(--text); font:16px/1.85 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC",Arial,sans-serif; }
+  .wrap { max-width:860px; margin:0 auto; padding:28px 20px 72px; }
+  header { display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between; padding-bottom:20px; border-bottom:1px solid var(--line); }
+  .brand { display:flex; align-items:center; gap:12px; font-size:20px; font-weight:700; }
+  .mark { width:34px; height:34px; border-radius:10px; flex:none; background:radial-gradient(circle at 50% 35%,#16362A,#0B100E);
+          border:1.5px solid var(--accent); box-shadow:0 0 16px rgba(74,222,128,.35); position:relative; }
+  .mark::after { content:""; position:absolute; left:14px; top:15px; width:5px; height:10px; border-radius:5px 5px 0 0;
+                 background:var(--accent); transform:rotate(35deg); box-shadow:7px -4px 0 -1px var(--accent); }
+  .switch { display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; }
+  .switch button { appearance:none; border:0; background:transparent; color:var(--muted); padding:7px 18px; font-size:14px; cursor:pointer; font-family:inherit; }
+  .switch button.active { background:var(--accent); color:#07120B; font-weight:700; }
+  .meta { color:var(--muted); font-size:14px; margin:22px 0 28px; }
+  h1 { font-size:30px; margin:0 0 6px; }
+  h2 { font-size:19px; margin:38px 0 12px; padding-left:12px; border-left:3px solid var(--accent); }
+  p, li { color:var(--sub); }
+  p { margin:10px 0; } ul { padding-left:22px; } li { margin:6px 0; }
+  a { color:var(--accent); text-decoration:none; } a:hover { text-decoration:underline; }
+  code { background:#0E1512; border:1px solid var(--line); border-radius:5px; padding:1px 6px; font-size:13px; color:#9DD3B2; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 22px; margin:18px 0; }
+  .note { border-left:3px solid var(--warn); background:rgba(212,162,52,.07); padding:12px 16px; border-radius:0 10px 10px 0; margin:18px 0; font-size:14.5px; color:#E0CB99; }
+  .danger { border-left-color:#F87171; background:rgba(248,113,113,.07); color:#F2B8B8; }
+  footer { margin-top:56px; padding-top:20px; border-top:1px solid var(--line); color:var(--muted); font-size:13.5px; }
+  .lang[hidden] { display:none; }
+  @media (max-width:560px) { h1{font-size:25px} h2{font-size:17px} .wrap{padding:20px 16px 56px} }
+</style>
+<noscript><style>.lang-en{display:block !important}</style></noscript>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="mark" aria-hidden="true"></span><span>树洞 · Treehole</span></div>
+    <div class="switch" role="group" aria-label="Language / 语言">
+      <button id="btnZh" type="button" class="active" onclick="setLang('zh')">中文</button>
+      <button id="btnEn" type="button" onclick="setLang('en')">English</button>
+    </div>
+  </header>
+
+  <!-- ==================== 中文 ==================== -->
+  <article id="zh" class="lang lang-zh">
+    <h1>使用条款与社区准则</h1>
+    <p class="meta"><strong>生效日期：</strong>2026 年 11 月 15 日　·　适用于树洞 Android 应用（<code>xyz.treehole787980</code>）与网页版 <a href="https://787980.xyz/treehole/">787980.xyz/treehole</a></p>
+
+    <div class="card">
+      <strong>请先读完再留言</strong>
+      <p style="margin-bottom:0">树洞是一个公开的匿名留言板。不用注册，不留姓名——但正因为匿名，更需要每个人自己守住边界。你写下的内容会立刻被所有访问者看到。发布留言或回复，即表示你已阅读并同意本条款，以及我们的<a href="https://hchua.github.io/work/sdyszc.htm">隐私政策</a>。</p>
+    </div>
+
+    <h2>1. 服务是什么</h2>
+    <p>树洞提供浏览、发布、回复留言与按日期查找的功能，应用与网页版共用同一份数据。服务由个人开发者运营，按「现状」免费提供，没有账号、没有私信、没有关注或好友关系，也不提供付费功能或广告。</p>
+
+    <h2>2. 禁止发布的内容</h2>
+    <p>以下内容一律禁止，无论以正文、昵称还是回复的形式出现：</p>
+    <ul>
+      <li>任何违法内容，特别是涉及未成年人的性剥削、性化或伤害内容（<strong>零容忍，一经发现立即删除并依法报告</strong>）。</li>
+      <li>色情或露骨性描写、招嫖、贩卖或分享非法物品。</li>
+      <li>仇恨、歧视、煽动暴力或恐怖主义，以及对特定群体的贬损与骚扰。</li>
+      <li>针对具体个人的霸凌、人肉搜索、威胁、跟踪，或未经同意公开他人的姓名、电话、住址、账号等隐私信息。</li>
+      <li>冒充他人、伪造身份或来源，以及可能造成人身或财产损失的诈骗、虚假信息与钓鱼链接。</li>
+      <li>垃圾广告、重复刷屏、机器批量发布，或以任何方式规避 15 秒发布间隔限制。</li>
+      <li>恶意代码、诱导下载、侵犯他人著作权或商标权的内容。</li>
+    </ul>
+    <div class="note danger">请勿在留言里留下真实姓名、联系方式、住址、身份证号等个人信息，也不要写下会伤害到具体某个人的内容。树洞不提供账号，因此你无法自行编辑或删除已发布的内容（删除方式见第 5 节）。</div>
+
+    <h2>3. 你对内容负的责任</h2>
+    <ul>
+      <li>你保留所写内容的著作权，但为使服务能够运行，你授予运营者为存储、展示、复制、审核与备份这些内容所必需的、非独占的许可。</li>
+      <li>你保证有权发布该内容，且它不侵犯任何第三方的合法权益。</li>
+      <li>留言是公开的，会被应用与网页版的所有访问者看到，也可能被截图、转载或被搜索引擎收录。请自行判断哪些话适合公开。</li>
+      <li>他人写的内容不代表运营者的观点，运营者不对其他用户发布的内容作背书。</li>
+    </ul>
+
+    <h2>4. 审核与处置</h2>
+    <p>我们会持续维护留言环境，措施包括：按 IP 实施 15 秒发布间隔限制；对违规留言或其回复进行隐藏、锁定或删除；对反复违规的来源限制发布；在违法情形下配合有权机关处理。</p>
+    <p><strong>应用内举报：</strong>长按任意留言或回复，可选择「举报垃圾或骚扰」或「举报违法或有害内容」。举报记录（内容 id、类别、IP、客户端标识、时间）写入服务端供人工审核，<strong>不会复制留言正文</strong>；我们核实后会按上述方式处置。</p>
+    <p><strong>本机屏蔽：</strong>同一菜单里的「不再显示这条」会把该内容隐藏在你的设备上，不上传、不影响其他用户；卸载应用即清除。</p>
+    <p><strong>其他举报渠道：</strong>也可发邮件到 <a href="mailto:260358@qq.com">260358@qq.com</a>，注明留言的发布时间、昵称和正文片段以及违规原因，我们会核实处理，必要时回邮件说明结果。请勿在留言板里公开争吵式「举报」，那样只会产生更多违规内容。</p>
+
+    <h2>5. 删除与退出</h2>
+    <p>卸载应用只会移除设备上的程序与本地语言偏好，<strong>不会</strong>删除已发布到服务器的留言。需要删除某条内容时，请按第 4 节的邮箱联系我们，核实后删除该留言及其回复。数据处理与保存期限详见<a href="https://hchua.github.io/work/sdyszc.htm">隐私政策</a>第 6 节。</p>
+
+    <h2>6. 免责与变更</h2>
+    <p>服务按「现状」提供，运营者不保证服务永不中断或内容永不丢失，也不对因使用服务产生的间接损失负责。因故障、维护、法律要求或政策变化，我们可能调整功能、限制发布或终止服务。条款更新会修改本页生效日期；继续发布内容即视为接受更新后的条款。</p>
+
+    <h2>7. 未成年人</h2>
+    <p>树洞不面向 13 岁以下儿童（或当地法定最低年龄以下的未成年人）。建议未成年人在监护人陪同下使用；监护人如需删除相关内容，可通过上述邮箱联系我们。</p>
+
+    <h2>8. 联系我们</h2>
+    <p>条款咨询、违规举报与内容删除请求：<a href="mailto:260358@qq.com">260358@qq.com</a>。</p>
+  </article>
+
+  <!-- ==================== English ==================== -->
+  <article id="en" class="lang lang-en" hidden>
+    <h1>Terms of Use &amp; Community Guidelines</h1>
+    <p class="meta"><strong>Effective date:</strong> 15 November 2026　·　Applies to the Treehole Android app (<code>xyz.treehole787980</code>) and the web version at <a href="https://787980.xyz/treehole/">787980.xyz/treehole</a></p>
+
+    <div class="card">
+      <strong>Please read this before posting</strong>
+      <p style="margin-bottom:0">Treehole is a public anonymous message board. No sign-up, no names — and that makes every user responsible for their own words. Anything you write becomes visible to all visitors immediately. By publishing a post or reply you confirm that you have read and agree to these Terms and to our <a href="https://hchua.github.io/work/sdyszc.htm">Privacy Policy</a>.</p>
+    </div>
+
+    <h2>1. The service</h2>
+    <p>Treehole lets you browse, publish and reply to posts and search them by date; the app and the website share the same data. It is operated by an individual developer and provided free of charge "as is". There are no accounts, direct messages, follows or friend lists, and there are no paid features or ads.</p>
+
+    <h2>2. Prohibited content</h2>
+    <p>The following is prohibited anywhere in a post, nickname or reply:</p>
+    <ul>
+      <li>Anything unlawful, in particular sexual exploitation, sexualisation or harm involving minors (<strong>zero tolerance: removed immediately and reported where required by law</strong>).</li>
+      <li>Pornographic or sexually explicit material, solicitation, and trafficking or sharing of illegal goods.</li>
+      <li>Hate speech, discrimination, incitement to violence or terrorism, and harassment or demeaning attacks on groups or individuals.</li>
+      <li>Bullying, doxxing, threats or stalking of a specific person, or publishing someone's name, phone number, address or account details without consent.</li>
+      <li>Impersonation, falsified identity or origin, and scams, misinformation or phishing links likely to cause harm.</li>
+      <li>Spam, repetitive flooding, automated bulk posting, or circumventing the 15-second posting interval.</li>
+      <li>Malicious code, induced downloads, and content infringing copyright or trademarks.</li>
+    </ul>
+    <div class="note danger">Do not post real names, contact details, addresses or ID numbers, and do not write anything intended to hurt a specific person. Treehole has no accounts, so you cannot edit or delete a published post yourself (see section 5).</div>
+
+    <h2>3. Your responsibility for your content</h2>
+    <ul>
+      <li>You retain copyright in what you write, but grant the operator a non-exclusive licence to store, display, reproduce, moderate and back it up as needed to run the service.</li>
+      <li>You confirm you have the right to publish it and that it infringes no third party's rights.</li>
+      <li>Posts are public: every visitor of the app and website can read them, and they may be screenshotted, reposted or indexed by search engines. Decide accordingly.</li>
+      <li>Content written by other users does not reflect the operator's views and is not endorsed by us.</li>
+    </ul>
+
+    <h2>4. Moderation and enforcement</h2>
+    <p>We maintain the board on an ongoing basis: a 15-second posting interval per IP; hiding, locking or removing violating posts and their replies; restricting repeat offenders; and cooperating with competent authorities where the law requires it.</p>
+    <p><strong>In-app reporting:</strong> long-press any post or reply and choose "Report spam or harassment" or "Report illegal or harmful content". The report record (content ID, category, IP, client identifier, timestamp) is stored on the server for human review; <strong>the post body is not copied</strong>. We verify and act as described above.</p>
+    <p><strong>On-device blocking:</strong> "Hide this content" in the same menu hides that content on your device only. It is not uploaded, does not affect other users, and is cleared when you uninstall the app.</p>
+    <p><strong>Other channel:</strong> you can also email <a href="mailto:260358@qq.com">260358@qq.com</a> with the post's timestamp, nickname, a short excerpt and the reason. We will verify, act as described above and, where appropriate, reply with the outcome. Please do not "report" by starting a public argument on the board — that only creates more violating content.</p>
+
+    <h2>5. Deletion and leaving</h2>
+    <p>Uninstalling the app removes only the program and your local language preference; it <strong>does not</strong> delete posts already published to the server. To remove content, contact us at the address in section 4; after verification we delete the post and its replies. See section 6 of our <a href="https://hchua.github.io/work/sdyszc.htm">Privacy Policy</a> for retention details.</p>
+
+    <h2>6. Disclaimer and changes</h2>
+    <p>The service is provided "as is". We do not guarantee uninterrupted availability or permanent preservation of content, and are not liable for indirect losses arising from its use. We may change features, restrict posting or discontinue the service due to faults, maintenance, legal requirements or policy changes. Updates to these Terms are reflected in the effective date above; continuing to post constitutes acceptance of the revised Terms.</p>
+
+    <h2>7. Minors</h2>
+    <p>Treehole is not directed at children under 13 (or below the minimum age in your jurisdiction). Minors should use it with a guardian; guardians may contact us to request removal of related content.</p>
+
+    <h2>8. Contact</h2>
+    <p>Questions, reports and deletion requests: <a href="mailto:260358@qq.com">260358@qq.com</a>.</p>
+  </article>
+
+  <footer>
+    树洞 · Treehole　|　<a href="https://hchua.github.io/work/sdyszc.htm">隐私政策 / Privacy Policy</a>　|　<a href="https://787980.xyz/treehole/">网页版</a>　|　<a href="mailto:260358@qq.com">260358@qq.com</a><br>
+    本页用于 Google Play 商店详情与「用户生成内容」政策声明的内容准则链接。
+  </footer>
+</div>
+
+<script>
+  /* 与隐私政策页一致：支持 #zh / #en 直达并记住选择 */
+  function setLang(l) {
+    var isEn = (l === 'en');
+    document.getElementById('zh').hidden = isEn;
+    document.getElementById('en').hidden = !isEn;
+    document.documentElement.lang = isEn ? 'en' : 'zh-CN';
+    document.getElementById('btnZh').className = isEn ? '' : 'active';
+    document.getElementById('btnEn').className = isEn ? 'active' : '';
+    try { localStorage.setItem('treehole_terms_lang', l); } catch (e) {}
+  }
+  (function () {
+    var hash = (location.hash || '').toLowerCase(), saved = null;
+    try { saved = localStorage.getItem('treehole_terms_lang'); } catch (e) {}
+    setLang(hash === '#en' ? 'en' : (hash === '#zh' ? 'zh' : (saved === 'en' ? 'en' : 'zh')));
+  })();
+</script>
+</body>
+</html>
