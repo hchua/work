@@ -11,7 +11,7 @@
 
   【内容依据】均按项目真实实现撰写，未作任何理想化假设：
     - AndroidManifest.xml：INTERNET + com.android.vending.CHECK_LICENSE 两个权限
-      （2026-11-15 改为 $1.00 买断并移植正版验证后补上第二个权限）、
+      （2026-11-15 改为一次性付费买断并移植正版验证后补上第二个权限）、
       usesCleartextTraffic=false、无 WebView
     - app/build.gradle：API_URL = https://787980.xyz/treehole/api.php（www 为备援）
     - api.php:84-96：IP 取自 CF-Connecting-IP，回退 REMOTE_ADDR
@@ -22,7 +22,9 @@
       任何设备信息，只接收「是否已授权」的校验结果
     - 购买/退款由 Google Play 处理，运营者不接触任何支付信息
 
-  【2026-11-15 11:45 更新】改为一次性买断 $1.00 + 正版验证，并停用另一条发布渠道。
+  【2026-11-15 11:45 更新】改为一次性付费买断 + 正版验证，并停用另一条发布渠道。
+  【2026-11-15 12:15 更新】售价只在 Play Console 配置、随时可调，全文不写具体金额，
+        统一以「Google Play 商店页面显示的价格」为准；调价无需修改本页、无需重编 App。
   适用范围收窄为「仅通过 Google Play 分发的 Android 应用」；旧版中关于双端共用数据
   与旧免费模式的描述已全部移除，权限声明同步补齐 CHECK_LICENSE。
   本页不是留言入口，仅作政策说明。为方便脚本校验，注释里也不保留旧措辞字面词。
@@ -152,7 +154,7 @@
     <h1>隐私政策</h1>
     <p class="meta">
       <strong>生效日期：</strong>2026 年 11 月 15 日　·　<strong>最近更新：</strong>2026 年 11 月 15 日<br>
-      <strong>适用产品：</strong>树洞 Android 应用（包名 <code>xyz.treehole787980</code>），Google Play 一次性付费 $1.00<br>
+      <strong>适用产品：</strong>树洞 Android 应用（包名 <code>xyz.treehole787980</code>），Google Play 一次性付费买断<br>
       <strong>说明：</strong>本应用仅通过 Google Play 分发；本页与使用条款页只是政策说明文档，不是留言入口。
     </p>
 
@@ -163,7 +165,7 @@
 
     <h2>1. 我们是谁、本政策覆盖什么</h2>
     <p>树洞是由个人开发者运营的匿名留言板，<strong>仅通过 Google Play 分发的 Android 应用提供</strong>。本政策说明应用在你使用「浏览留言、发布留言、回复、按日期查找、切换语言」这些功能时，会收集、使用、保存哪些信息。</p>
-    <p>应用为一次性付费买断（$1.00），购买与退款完全由 Google Play 处理。启动时应用会通过 Google Play 的许可服务校验购买状态；<strong>我们不会接触、也不会收集你的支付卡号、账单地址、购买账号或任何财务信息</strong>，只接收「是否已授权」这一校验结果。</p>
+    <p>应用为一次性付费买断，<strong>具体售价以 Google Play 商店页面显示为准，我们可能随时调整</strong>。购买与退款完全由 Google Play 处理。启动时应用会通过 Google Play 的许可服务校验购买状态；<strong>我们不会接触、也不会收集你的支付卡号、账单地址、购买账号或任何财务信息</strong>，只接收「是否已授权」这一校验结果。</p>
     <p>应用只与自有接口通信：<code>https://787980.xyz/treehole/api.php</code>（根域名不可用时自动回退 <code>https://www.787980.xyz/treehole/api.php</code>）。全部请求走 HTTPS，应用已声明 <code>usesCleartextTraffic="false"</code>，不允许明文 HTTP；数据库账号与密码不会打包进 APK。</p>
 
     <h2>2. 我们收集哪些信息</h2>
@@ -248,7 +250,7 @@
     <h1>Privacy Policy</h1>
     <p class="meta">
       <strong>Effective date:</strong> 15 November 2026　·　<strong>Last updated:</strong> 15 November 2026<br>
-      <strong>Applies to:</strong> the Treehole Android app (package <code>xyz.treehole787980</code>), a one-time $1.00 purchase on Google Play.<br>
+      <strong>Applies to:</strong> the Treehole Android app (package <code>xyz.treehole787980</code>), a one-time purchase on Google Play.<br>
       <strong>Note:</strong> the app is distributed only through Google Play. This page and the Terms page are policy documents, not a way to post.
     </p>
 
@@ -259,7 +261,7 @@
 
     <h2>1. Who we are and what this policy covers</h2>
     <p>Treehole is an anonymous message board operated by an individual developer and available <strong>only as an Android app distributed through Google Play</strong>. This policy explains what information is collected, used and retained when you browse posts, publish a post, reply, search by date or change the app language.</p>
-    <p>The app is a one-time $1.00 purchase handled entirely by Google Play, including refunds. On launch the app verifies the purchase through Google Play's licensing service; <strong>we never receive or collect your card number, billing address, purchase account or any other financial information</strong> — only the licensed / not-licensed result.</p>
+    <p>The app is a one-time purchase handled entirely by Google Play, including refunds. <strong>The current price is shown on the store listing and may change at any time.</strong> On launch the app verifies the purchase through Google Play's licensing service; <strong>we never receive or collect your card number, billing address, purchase account or any other financial information</strong> — only the licensed / not-licensed result.</p>
     <p>The app talks only to our own endpoint: <code>https://787980.xyz/treehole/api.php</code> (falling back to <code>https://www.787980.xyz/treehole/api.php</code> if the apex domain is unreachable). All traffic uses HTTPS, the app declares <code>usesCleartextTraffic="false"</code>, and database credentials are never bundled into the APK.</p>
 
     <h2>2. Information we collect</h2>
