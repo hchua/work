@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<!--
+  树洞（Treehole）儿童性虐待与性剥削（CSAE）防范标准 / Child Safety Standards
+  --------------------------------------------------------------------
+  用途：满足 Google Play「儿童安全标准」政策（Child Safety Standards policy）对
+        社交 / 匿名聊天类应用的强制要求，作为「应用内容 → 儿童安全标准」里
+        「安全标准网址」所指向的、公开可访问且不可编辑的网页。
+  部署：上传到 GitHub 公开仓库 hchua/work 根目录，远端文件名 sdcsae.htm
+        （沿用仓库惯例：拼音缩写 + .htm），公开 URL：
+        https://hchua.github.io/work/sdcsae.htm
+  要求核对（逐条对应官方政策正文）：
+        ① 公开标准明确禁止 CSAE —— 第 2 节
+        ② 应用内用户反馈机制 —— 第 4 节
+        ③ 获知 CSAM 后采取适当处置（含移除）—— 第 5 节
+        ④ 遵守儿童安全法 + 向 NCMEC / 所在地区机构举报的专门流程 —— 第 6 节
+        ⑤ 指定儿童安全事宜联系人 + 职责 —— 第 7 节
+  2026-11-15 新建。内容按项目真实实现撰写：纯文字留言、无账号/私信/图片上传、
+  15 秒同 IP 限流、举报记录落 treehole_report 表、后台可隐藏/锁定/删除。
+  与 sdtos.htm（使用条款）、sdyszc.htm（隐私政策）互相链接，三者共同构成公开用户政策。
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<meta name="color-scheme" content="dark">
+<title>儿童安全标准 · 树洞 Treehole / Child Safety Standards</title>
+<style>
+  :root { --bg:#0B100E; --card:#131B17; --line:#22322A; --text:#DFEAE3; --sub:#B9CFC2; --muted:#8AA397; --accent:#4ADE80; --warn:#D4A234; }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:radial-gradient(900px 520px at 15% -8%,#16362A 0%,var(--bg) 72%) no-repeat,var(--bg);
+         color:var(--text); font:16px/1.85 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC",Arial,sans-serif; }
+  .wrap { max-width:860px; margin:0 auto; padding:28px 20px 72px; }
+  header { display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between; padding-bottom:20px; border-bottom:1px solid var(--line); }
+  .brand { display:flex; align-items:center; gap:12px; font-size:20px; font-weight:700; }
+  .mark { width:34px; height:34px; border-radius:10px; flex:none; background:radial-gradient(circle at 50% 35%,#16362A,#0B100E);
+          border:1.5px solid var(--accent); box-shadow:0 0 16px rgba(74,222,128,.35); position:relative; }
+  .mark::after { content:""; position:absolute; left:14px; top:15px; width:5px; height:10px; border-radius:5px 5px 0 0;
+                 background:var(--accent); transform:rotate(35deg); box-shadow:7px -4px 0 -1px var(--accent); }
+  .switch { display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; }
+  .switch button { appearance:none; border:0; background:transparent; color:var(--muted); padding:7px 18px; font-size:14px; cursor:pointer; font-family:inherit; }
+  .switch button.active { background:var(--accent); color:#07120B; font-weight:700; }
+  .meta { color:var(--muted); font-size:14px; margin:22px 0 28px; }
+  h1 { font-size:30px; margin:0 0 6px; }
+  h2 { font-size:19px; margin:38px 0 12px; padding-left:12px; border-left:3px solid var(--accent); }
+  p, li { color:var(--sub); }
+  p { margin:10px 0; } ul { padding-left:22px; } li { margin:6px 0; }
+  a { color:var(--accent); text-decoration:none; } a:hover { text-decoration:underline; }
+  code { background:#0E1512; border:1px solid var(--line); border-radius:5px; padding:1px 6px; font-size:13px; color:#9DD3B2; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 22px; margin:18px 0; }
+  .note { border-left:3px solid var(--warn); background:rgba(212,162,52,.07); padding:12px 16px; border-radius:0 10px 10px 0; margin:18px 0; font-size:14.5px; color:#E0CB99; }
+  .danger { border-left-color:#F87171; background:rgba(248,113,113,.07); color:#F2B8B8; }
+  table { border-collapse:collapse; width:100%; margin:16px 0; font-size:14.5px; }
+  td, th { border:1px solid var(--line); padding:9px 12px; text-align:left; vertical-align:top; color:var(--sub); }
+  th { background:#16221B; color:#9DD3B2; font-weight:600; }
+  footer { margin-top:56px; padding-top:20px; border-top:1px solid var(--line); color:var(--muted); font-size:13.5px; }
+  .lang[hidden] { display:none; }
+  @media (max-width:560px) { h1{font-size:25px} h2{font-size:17px} .wrap{padding:20px 16px 56px} table{font-size:13px} }
+</style>
+<noscript><style>.lang-en{display:block !important}</style></noscript>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="mark" aria-hidden="true"></span><span>树洞 · Treehole</span></div>
+    <div class="switch" role="group" aria-label="Language / 语言">
+      <button id="btnZh" type="button" class="active" onclick="setLang('zh')">中文</button>
+      <button id="btnEn" type="button" onclick="setLang('en')">English</button>
+    </div>
+  </header>
+
+  <!-- ==================== 中文 ==================== -->
+  <article id="zh" class="lang lang-zh">
+    <h1>儿童性虐待与性剥削（CSAE）防范标准</h1>
+    <p class="meta"><strong>生效日期：</strong>2026 年 11 月 15 日　·　<strong>适用产品：</strong>树洞 Android 应用（包名 <code>xyz.treehole787980</code>，仅通过 Google Play 分发）　·　<strong>版本：</strong>1.0</p>
+
+    <div class="card">
+      <strong>本页是什么</strong>
+      <p style="margin-bottom:0">本页是树洞按 Google Play「<strong>儿童安全标准</strong>」政策对外发布的公开防范标准，与<a href="https://hchua.github.io/work/sdtos.htm">使用条款与社区准则</a>、<a href="https://hchua.github.io/work/sdyszc.htm">隐私政策</a>共同构成适用于所有用户的公开政策文件。我们对儿童性虐待与性剥削采取<strong>零容忍</strong>立场：不允许、不纵容、不为其提供任何便利。</p>
+    </div>
+
+    <h2>1. 适用范围与定义</h2>
+    <p>本标准适用于树洞 Android 应用内的一切用户生成内容，包括留言正文、回复、昵称，以及任何试图借这些内容达成的行为，无论发布者是否匿名、内容是否虚构、以何种语言或暗语书写。</p>
+    <ul>
+      <li><strong>CSAE（儿童性虐待与性剥削，Child Sexual Abuse and Exploitation）</strong>：指对儿童实施或促成性虐待、性剥削的一切行为，包括线索引诱、性化、胁迫、交易与为性目的接触儿童。</li>
+      <li><strong>CSAM（儿童性虐待内容，Child Sexual Abuse Material）</strong>：指描绘儿童遭受性虐待或性化的任何影像、文字、音频、链接或索取信息，无论其是否真实、是否经过改写，也无论以「虚构创作」「角色扮演」或任何名义包装。</li>
+      <li>「儿童」指未满 18 周岁的人；本应用本身不面向 13 岁以下儿童（或当地法定最低年龄以下的未成年人）。</li>
+    </ul>
+
+    <h2>2. 明令禁止的内容与行为</h2>
+    <p>以下内容<strong>一律禁止</strong>，不构成任何例外：</p>
+    <ul>
+      <li>制作、上传、发布、传播、索取、交易、收藏 CSAM，或提供获取 CSAM 的链接、关键词、暗语、变体拼写与规避审查的指引。</li>
+      <li>对儿童进行性化描述、性暗示、性邀请，或宣扬、美化、淡化、为其辩护的内容。</li>
+      <li><strong>网络诱导（grooming）</strong>：为性目的结交儿童、诱导线下见面，或诱使儿童提供私密影像与信息。</li>
+      <li><strong>性敲诈（sextortion）</strong>：以真实或声称持有的私密影像威胁、勒索、胁迫任何人，尤其是儿童。</li>
+      <li>贩卖、招揽、组织儿童用于商业性剥削，或为上述任何行为牵线、筹资、招募、提供技术便利。</li>
+      <li>以匿名、虚构、纯文字、非真实影像、艺术创作、教育或研究等名义包装上述内容 —— <strong>这些都不是豁免理由</strong>。</li>
+    </ul>
+    <div class="note danger">树洞是纯文字留言板，不提供图片、视频、文件上传或私信功能。任何试图用文字、链接或外部联络方式绕开这一限制的行为，同样违反本标准。</div>
+
+    <h2>3. 产品层面的预防设计</h2>
+    <table>
+      <tr><th style="width:34%">措施</th><th>说明</th></tr>
+      <tr><td>最小化产品形态</td><td>无账号、无私信、无好友或关注关系、无图片/视频/文件上传；留言为纯文字（最多 4096 字），昵称可留空。不提供与儿童建立私下接触的功能。</td></tr>
+      <tr><td>最小化数据</td><td>不收集姓名、邮箱、电话、通讯录、位置、设备标识或广告 ID；仅为展示留言与防刷保存内容、发布者 IP 与客户端标识，详见<a href="https://hchua.github.io/work/sdyszc.htm">隐私政策</a>。</td></tr>
+      <tr><td>发布频率限制</td><td>同一 IP 15 秒内只能发布一次，抑制批量灌水与自动化滥用。</td></tr>
+      <tr><td>传输与分发</td><td>全站 HTTPS，应用禁用明文流量，无 WebView；仅通过 Google Play 分发并在启动时校验购买许可。</td></tr>
+      <tr><td>内容分级</td><td>声明不面向儿童；商店详情与内容分级问卷如实申报含用户生成内容。</td></tr>
+    </table>
+
+    <h2>4. 应用内举报机制</h2>
+    <p>用户<strong>无需账号、无需提供身份、无需付费</strong>即可在应用内举报儿童安全问题：</p>
+    <ul>
+      <li><strong>长按任意留言或回复</strong> → 选择「<strong>举报儿童安全问题（CSAM）</strong>」。该举报以类别 <code>csam</code> 写入服务端 <code>treehole_report</code> 表，进入优先人工审核队列。</li>
+      <li>同一菜单还提供「举报垃圾或骚扰」「举报违法或有害内容」以及「不再显示这条」（仅在本机隐藏该内容）。</li>
+      <li>也可发邮件至 <a href="mailto:260358@qq.com">260358@qq.com</a>，注明留言时间、昵称、正文片段与缘由；请<strong>不要</strong>在公开留言板里转述或转贴可疑内容，以免造成二次传播。</li>
+    </ul>
+    <p>举报记录仅保存内容 id、类别、举报者 IP、客户端标识与时间，<strong>不复制留言正文</strong>；详见<a href="https://hchua.github.io/work/sdyszc.htm">隐私政策</a>。我们不会因举报而要求举报者提供额外个人信息。</p>
+
+    <h2>5. 获知 CSAM 后的处置流程</h2>
+    <p>一旦通过应用内举报、邮件、Google Play 通知或自主巡检确切获知 CSAM 或 CSAE 线索，运营者将按以下顺序采取行动，且<strong>不限于移除内容</strong>：</p>
+    <ol>
+      <li><strong>优先核实</strong>：将儿童安全类举报列为最高优先级，第一时间查看被举报内容及其回复。</li>
+      <li><strong>立即移除</strong>：确认或高度疑似后立即隐藏/删除相关留言与回复，并锁定该内容、限制涉事来源 IP 继续发布；必要时暂停相关功能或终止服务。</li>
+      <li><strong>最小留存</strong>：仅保留配合调查所必需的记录（内容 id、类别、IP、客户端标识、时间），不主动复制或扩散涉事内容本身，并避免向被举报者预警。</li>
+      <li><strong>依法上报</strong>：按第 6 节向有关机构举报，并配合有权机关的依法调取、保全与调查。</li>
+      <li><strong>复盘改进</strong>：更新关键词与审核规则，检视同类内容，降低再次发生的可能。</li>
+    </ol>
+
+    <h2>6. 遵守儿童安全法律与向机构举报</h2>
+    <p>本应用遵守其运营地、分发地及用户所在地适用的儿童安全法律法规，包括但不限于《中华人民共和国未成年人保护法》《中华人民共和国刑法》《中华人民共和国网络安全法》中关于侵害未成年人权益、淫秽物品与网络信息内容治理的规定，以及 Google Play 开发者计划政策与儿童安全标准政策。</p>
+    <p><strong>专门举报流程：</strong>对经确认的 CSAM，运营者会通过美国<strong>国家失踪与受虐儿童援助中心（NCMEC）CyberTipline</strong>（<code>report.cybertip.org</code>）提交举报；在适用情形下，同时或改为向<strong>所在地区的相关机构、执法部门或儿童保护组织</strong>举报，并依其要求提供所掌握的最小必要信息。涉及人身安全紧急情况时，优先联系当地执法机关。</p>
+
+    <h2>7. 儿童安全事宜联系人</h2>
+    <div class="card">
+      <p style="margin-top:0"><strong>指定联系人邮箱：</strong><a href="mailto:260358@qq.com">260358@qq.com</a>（与 Google Play 开发者账号关联的联系地址，可在 Play Console 自动同步）。</p>
+      <p><strong>职责与职权：</strong>该联系人负责接收 Google Play 就本应用中发现的 CSAE / CSAM 内容发出的通知，能够说明本应用的违规处置与内容审核程序，并有权在需要时直接执行删除、锁定、限制来源、向机构上报与配合调查等行动。本应用由个人开发者运营，指定联系人即运营者本人，具备相应决策与执行职权。</p>
+      <p style="margin-bottom:0"><strong>其他联系渠道：</strong>条款咨询、内容删除请求同样使用上述邮箱，或见<a href="https://hchua.github.io/work/sdtos.htm">使用条款</a>第 8 节。</p>
+    </div>
+
+    <h2>8. 相关文档与更新</h2>
+    <p>本标准与<a href="https://hchua.github.io/work/sdtos.htm">使用条款与社区准则</a>、<a href="https://hchua.github.io/work/sdyszc.htm">隐私政策</a>一并适用；如有冲突，以对儿童保护更严格的条款为准。政策更新会修改本页生效日期并向 Google Play 同步最新链接。本页为静态公开网页，无需登录即可访问，不以 PDF 形式提供。</p>
+  </article>
+
+  <!-- ==================== English ==================== -->
+  <article id="en" class="lang lang-en">
+    <h1>Standards Against Child Sexual Abuse and Exploitation (CSAE)</h1>
+    <p class="meta"><strong>Effective date:</strong> 15 November 2026　·　<strong>Applies to:</strong> the Treehole Android app (package <code>xyz.treehole787980</code>), distributed only through Google Play　·　<strong>Version:</strong> 1.0</p>
+
+    <div class="card">
+      <strong>About this page</strong>
+      <p style="margin-bottom:0">This page publishes Treehole's standards under the Google Play <strong>Child Safety Standards</strong> policy. Together with our <a href="https://hchua.github.io/work/sdtos.htm">Terms of Use and Community Guidelines</a> and <a href="https://hchua.github.io/work/sdyszc.htm">Privacy Policy</a>, it forms the publicly available user policy documentation for everyone using the app. We apply <strong>zero tolerance</strong> to child sexual abuse and exploitation: it is not allowed, not tolerated, and not facilitated in any way.</p>
+    </div>
+
+    <h2>1. Scope and definitions</h2>
+    <p>These standards apply to all user-generated content in the Treehole Android app — post bodies, replies and nicknames — and to any conduct attempted through them, regardless of anonymity, fictional framing, language or coded wording.</p>
+    <ul>
+      <li><strong>CSAE (Child Sexual Abuse and Exploitation)</strong> means any act that inflicts or facilitates sexual abuse or exploitation of a child, including grooming, sexualisation, coercion, trafficking and contacting a child for sexual purposes.</li>
+      <li><strong>CSAM (Child Sexual Abuse Material)</strong> means any image, text, audio, link or solicitation depicting or enabling sexual abuse or sexualisation of a child, whether real or not, whether rewritten or not, and however it is labelled — including "fiction", "role-play", "art" or "research".</li>
+      <li>"Child" means a person under 18. The app itself is not directed at children under 13 (or below the minimum age in the applicable jurisdiction).</li>
+    </ul>
+
+    <h2>2. Prohibited content and conduct</h2>
+    <p>The following are <strong>strictly prohibited without exception</strong>:</p>
+    <ul>
+      <li>Creating, uploading, posting, sharing, requesting, trading or storing CSAM, or providing links, keywords, code words, variant spellings or filter-evasion instructions for obtaining it.</li>
+      <li>Sexualised descriptions of children, sexual suggestions or invitations, and content that promotes, glamorises, trivialises or defends such conduct.</li>
+      <li><strong>Grooming</strong>: befriending a child for sexual purposes, inducing an offline meeting, or coercing a child into providing intimate imagery or information.</li>
+      <li><strong>Sextortion</strong>: threatening, blackmailing or coercing any person — especially a child — using real or alleged intimate imagery.</li>
+      <li>Trafficking, soliciting or organising children for commercial sexual exploitation, or introducing, funding, recruiting for or technically facilitating any of the above.</li>
+      <li>Disguising any of the above as anonymous, fictional, text-only, non-real, artistic, educational or research content — <strong>none of these is an exemption</strong>.</li>
+    </ul>
+    <div class="note danger">Treehole is a text-only board with no image, video or file upload and no direct messaging. Any attempt to bypass these limits using text, links or off-app contact details also violates these standards.</div>
+
+    <h2>3. Preventive product design</h2>
+    <table>
+      <tr><th style="width:34%">Measure</th><th>Details</th></tr>
+      <tr><td>Minimal product surface</td><td>No accounts, no direct messages, no friends or follows, no image/video/file upload; text posts only (up to 4096 characters) with an optional nickname. There is no feature for establishing private contact with a child.</td></tr>
+      <tr><td>Data minimisation</td><td>We do not collect names, email addresses, phone numbers, contacts, location, device identifiers or advertising IDs. Only the post content, the poster's IP and a client identifier are stored to display posts and prevent spam; see the <a href="https://hchua.github.io/work/sdyszc.htm">Privacy Policy</a>.</td></tr>
+      <tr><td>Rate limiting</td><td>One post per IP per 15 seconds, to curb bulk flooding and automated abuse.</td></tr>
+      <tr><td>Transport and distribution</td><td>HTTPS throughout, cleartext traffic disabled, no WebView; distributed only via Google Play with a purchase-licence check at launch.</td></tr>
+      <tr><td>Audience</td><td>Declared as not directed at children; the store listing and content-rating questionnaire disclose user-generated content.</td></tr>
+    </table>
+
+    <h2>4. In-app reporting mechanism</h2>
+    <p>Any user can report a child safety concern <strong>without an account, without identifying themselves and at no cost</strong>:</p>
+    <ul>
+      <li><strong>Long-press any post or reply</strong> and choose "<strong>Report a child safety concern (CSAM)</strong>". The report is stored on the server with category <code>csam</code> in the <code>treehole_report</code> table and enters a priority human-review queue.</li>
+      <li>The same menu also offers "Report spam or harassment", "Report illegal or harmful content" and "Hide this content" (on-device only).</li>
+      <li>You may also email <a href="mailto:260358@qq.com">260358@qq.com</a> with the post's timestamp, nickname, a short excerpt and the reason. Please <strong>do not</strong> quote or repost suspicious material on the public board, as that would spread it further.</li>
+    </ul>
+    <p>Report records contain only the content ID, category, reporter IP, client identifier and timestamp; <strong>the post body is not copied</strong>. See the <a href="https://hchua.github.io/work/sdyszc.htm">Privacy Policy</a>. We never require additional personal information from a reporter.</p>
+
+    <h2>5. Action taken on CSAM</h2>
+    <p>On obtaining actual knowledge of CSAM or CSAE indicators — through in-app reports, email, a Google Play notification or our own review — the operator takes the following steps, <strong>including but not limited to removing the content</strong>:</p>
+    <ol>
+      <li><strong>Priority verification</strong>: child safety reports are reviewed at the highest priority, including the reported content and its replies.</li>
+      <li><strong>Immediate removal</strong>: confirmed or strongly suspected material is hidden or deleted at once, the content is locked, the source IP is restricted from further posting, and features or the service may be suspended where necessary.</li>
+      <li><strong>Minimal retention</strong>: only records necessary for a lawful investigation are kept (content ID, category, IP, client identifier, timestamp). The material itself is not reproduced or circulated, and the reported user is not tipped off.</li>
+      <li><strong>Reporting to authorities</strong>: submit a report as described in section 6 and cooperate with lawful requests for preservation, disclosure and investigation.</li>
+      <li><strong>Follow-up</strong>: update keywords and moderation rules and review similar content to reduce recurrence.</li>
+    </ol>
+
+    <h2>6. Compliance with child safety laws and reporting to authorities</h2>
+    <p>The app complies with applicable child safety laws and regulations in the jurisdictions where it is operated, distributed and used, including but not limited to the PRC Law on the Protection of Minors, the PRC Criminal Law and the PRC Cybersecurity Law as they concern the rights of minors, obscene material and online content governance, as well as the Google Play Developer Programme Policies and Child Safety Standards policy.</p>
+    <p><strong>Dedicated reporting process:</strong> confirmed CSAM is reported to the <strong>National Center for Missing and Exploited Children (NCMEC) CyberTipline</strong> (<code>report.cybertip.org</code>) in the United States; where applicable, we also report — or report instead — to the <strong>relevant regional authority, law-enforcement agency or child-protection organisation</strong>, providing only the minimum information we hold. Where a person is in immediate danger, local law enforcement is contacted first.</p>
+
+    <h2>7. Child safety point of contact</h2>
+    <div class="card">
+      <p style="margin-top:0"><strong>Designated contact:</strong> <a href="mailto:260358@qq.com">260358@qq.com</a> (the contact address associated with the Google Play developer account and synced from Play Console).</p>
+      <p><strong>Role and authority:</strong> this contact receives notifications from Google Play about CSAE / CSAM content found in the app, can speak to the app's enforcement and review procedures, and is empowered to remove or lock content, restrict sources, report to authorities and cooperate with investigations. The app is operated by an individual developer; the designated contact is the operator and holds the necessary decision-making and execution authority.</p>
+      <p style="margin-bottom:0"><strong>Other enquiries:</strong> policy questions and content-removal requests use the same address, or see section 8 of the <a href="https://hchua.github.io/work/sdtos.htm">Terms of Use</a>.</p>
+    </div>
+
+    <h2>8. Related documents and updates</h2>
+    <p>These standards apply alongside our <a href="https://hchua.github.io/work/sdtos.htm">Terms of Use and Community Guidelines</a> and <a href="https://hchua.github.io/work/sdyszc.htm">Privacy Policy</a>; where they conflict, the provision offering stronger protection to children prevails. Updates change the effective date above and are reflected in the link registered with Google Play. This page is a static, publicly accessible web page requiring no login and is not provided as a PDF.</p>
+  </article>
+
+  <footer>
+    树洞 · Treehole　|　<a href="https://hchua.github.io/work/sdtos.htm">使用条款 / Terms of Use</a>　|　<a href="https://hchua.github.io/work/sdyszc.htm">隐私政策 / Privacy Policy</a>　|　<a href="mailto:260358@qq.com">260358@qq.com</a><br>
+    本页为 Google Play「儿童安全标准」政策要求的公开 CSAE 防范标准，供商店详情与 Play Console 声明引用。
+  </footer>
+</div>
+
+<script>
+  /* 与隐私政策 / 使用条款页一致：支持 #zh / #en 直达并记住选择；
+     无 JS 时由 noscript 样式把两份全文都显示出来，保证审核员一定能读到内容。 */
+  function setLang(l) {
+    var isEn = (l === 'en');
+    document.getElementById('zh').hidden = isEn;
+    document.getElementById('en').hidden = !isEn;
+    document.documentElement.lang = isEn ? 'en' : 'zh-CN';
+    document.getElementById('btnZh').className = isEn ? '' : 'active';
+    document.getElementById('btnEn').className = isEn ? 'active' : '';
+    try { localStorage.setItem('treehole_csae_lang', l); } catch (e) {}
+  }
+  (function () {
+    var hash = (location.hash || '').toLowerCase(), saved = null;
+    try { saved = localStorage.getItem('treehole_csae_lang'); } catch (e) {}
+    setLang(hash === '#en' ? 'en' : (hash === '#zh' ? 'zh' : (saved === 'en' ? 'en' : 'zh')));
+  })();
+</script>
+</body>
+</html>
